@@ -160,5 +160,6 @@ extension MoviesViewController: AddMovieViewControllerDelegate {
     func addMovieViewController(_ addMovieViewController: AddMovieViewController, didAddPersonalMovie personalMovie: PersonalMovie) {
         self.personalMoviesList.append(personalMovie)
         self.moviesTableView.reloadData()
+        self.moviesTableView.setContentOffset(CGPoint.zero, animated: true)
     }
 }
