@@ -9,7 +9,19 @@
 import Foundation
 
 public enum MoviesConstants {
-    public static var moviesAPI: String {
-        return "http://api.themoviedb.org/3/discover/movie?api_key=acea91d2bff1c53e6604e4985b6989e2&p%20age=1"
+    public static var moviesAPIComponents: URLComponents {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.themoviedb.org"
+        components.path = "/3/discover/movie"
+        components.queryItems = [
+            URLQueryItem(name: "api_key", value: "acea91d2bff1c53e6604e4985b6989e2")
+        ]
+        
+        return components
+    }
+    
+    public static var moviesPostersAPI: String {
+        return "https://image.tmdb.org/t/p/w500"
     }
 }

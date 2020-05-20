@@ -13,31 +13,28 @@ public typealias MoviesResponseCompletionHandler = (MoviesResponse?, Error?) -> 
 class MoviesCloudManager {
     static let shared = MoviesCloudManager()
     
-    
     private init() { }
     
-    public func fetchMovies(completion: @escaping MoviesResponseCompletionHandler) {
-        guard let moviesURL = URL(string: MoviesConstants.moviesAPI) else {
+    public func fetchMovies(pageNumber number: Int = 1, completion: @escaping MoviesResponseCompletionHandler) {
+        
+        var components = MoviesConstants.moviesAPIComponents
+        components.queryItems?.append(URLQueryItem(name: "page", value: "\(number)"))
+
+        guard let moviesURL = components.url else {
             return
         }
-        
-        URLSession.shared.dataTask(with: moviesURL) { (data, _, error) in
-            guard let moviesData = data else {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
+         
+        URLSession.shared.dataTask(with: moviesURL) { (data, response, error) in
+            guard let moviesData = data, let response = response, ((response as? HTTPURLResponse)?.statusCode ?? 500) < 300 else {
+                completion(nil, error)
                 return
             }
             
             do {
                 let moviesResponse = try JSONDecoder().decode(MoviesResponse.self, from: moviesData)
-                DispatchQueue.main.async {
-                    completion(moviesResponse, nil)
-                }
+                completion(moviesResponse, nil)
             } catch {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
+                completion(nil, error)
             }
         }.resume()
     }

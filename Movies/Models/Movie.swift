@@ -8,13 +8,13 @@
 
 import Foundation
 
-public struct Movie: Codable {
+public struct Movie: Codable, Equatable {
     let title, overview, releaseDate, posterPath: String
     let popularity, voteAverage: Double
     let voteCount, id: Int
     let video, adult: Bool
     let backdropPath, originalMovieTitle: String
-    let originalMovieLanguage: MovieLanguage
+    let originalMovieLanguage: String
     let genreIDS: [Int]
 
     enum CodingKeys: String, CodingKey {
@@ -31,6 +31,12 @@ public struct Movie: Codable {
         case voteAverage = "vote_average"
         case overview
         case releaseDate = "release_date"
+    }
+    
+    public func posterImageURL() -> URL? {
+        let posterImagePath = MoviesConstants.moviesPostersAPI + self.posterPath
+        guard let posterImageURL = URL(string: posterImagePath) else { return nil }
+        return posterImageURL
     }
 }
 

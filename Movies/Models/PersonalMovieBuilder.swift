@@ -15,7 +15,7 @@ public enum PersonalMovieBuilderError: Error {
     case movieReleaseDateNotFound
 }
 
-public class MovieBuilder {
+public class PersonalMovieBuilder {
     
     public private(set) var posterImage: UIImage?
     public private(set) var movieTitle: String?
@@ -38,7 +38,7 @@ public class MovieBuilder {
         self.movieReleaseDate = releaseDate
     }
     
-    public func build() throws -> PersonalMovie {
+    public func build() throws -> PersonalMovie? {
         guard let posterImage = posterImage else {
             throw PersonalMovieBuilderError.moviePosterImageNotFound
         }
@@ -47,7 +47,8 @@ public class MovieBuilder {
             throw PersonalMovieBuilderError.movieTitleNotFound
         }
         
-        guard let movieOverview = movieOverview else {
+        // As "Movie Overview" is the placeholder for the textview
+        guard let movieOverview = movieOverview, movieOverview != "Movie Overview" else {
             throw PersonalMovieBuilderError.movieOverviewNotFound
         }
         

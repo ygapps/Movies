@@ -10,17 +10,14 @@ import UIKit
 
 class MovieCell: UITableViewCell {
 
-    @IBOutlet weak var moviePosterImageView: UIImageView?
-    @IBOutlet weak var movieTitleLabel: UILabel?
-    @IBOutlet weak var movieReleaseDateLabel: UILabel?
-    @IBOutlet weak var movieOverviewTextView: UITextView?
-
+    @IBOutlet weak var moviePosterImageView: UIImageView!
+    @IBOutlet weak var movieTitleLabel: UILabel!
+    @IBOutlet weak var movieReleaseDateLabel: UILabel!
+    @IBOutlet weak var movieOverviewTextView: UITextView!
+    @IBOutlet weak var movieCardView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    }
-    
-    func configureCell(withMovie movie: Movie) {
-        
     }
 }
