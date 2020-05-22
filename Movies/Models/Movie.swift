@@ -9,11 +9,13 @@
 import Foundation
 
 public struct Movie: Codable, Equatable {
-    let title, overview, releaseDate, posterPath: String
+    let title, overview, releaseDate: String
+    let posterPath: String?
     let popularity, voteAverage: Double
     let voteCount, id: Int
     let video, adult: Bool
-    let backdropPath, originalMovieTitle: String
+    let backdropPath: String?
+    let originalMovieTitle: String
     let originalMovieLanguage: String
     let genreIDS: [Int]
 
@@ -34,7 +36,8 @@ public struct Movie: Codable, Equatable {
     }
     
     public func posterImageURL() -> URL? {
-        let posterImagePath = MoviesConstants.moviesPostersAPI + self.posterPath
+        guard let posterPath = self.posterPath else { return nil }
+        let posterImagePath = MoviesConstants.moviesPostersAPI + posterPath
         guard let posterImageURL = URL(string: posterImagePath) else { return nil }
         return posterImageURL
     }
