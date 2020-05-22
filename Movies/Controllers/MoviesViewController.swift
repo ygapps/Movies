@@ -110,6 +110,8 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
             
             if let posterURL = moviesList[indexPath.row].posterImageURL() {
                 movieCell.moviePosterImageView.setMoviePoster(withURL: posterURL)
+            } else {
+                movieCell.moviePosterImageView.image = UIImage(named: "MoviePlaceholder")
             }
         } else {
             
